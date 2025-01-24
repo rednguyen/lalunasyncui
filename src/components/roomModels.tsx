@@ -5,7 +5,8 @@ export default interface SiteMinderRoomModel {
     date: any,
     occ: any, 
     barPrice: any,
-    priceValidation: boolean
+    priceValidation: boolean,
+    season: any
 }
 
 

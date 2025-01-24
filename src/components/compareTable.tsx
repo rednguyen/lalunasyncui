@@ -435,6 +435,8 @@ export default function CompareTable () {
         }  
     }
 
+ 
+
     const updateBarPrice = () => {
             updateBarPriceDetail(1, supDoub);
             updateBarPriceDetail(2, supTwin);
@@ -500,6 +502,55 @@ export default function CompareTable () {
 
     }
 
+    const updateSeason= () => {
+          // Create a copy of the array
+          let newArray1 = [...supDoub];
+          let newArray2 = [...supTwin];
+          let newArray3 = [...dexDoub];
+          let newArray4 = [...dexTwin];
+          let newArray5 = [...supDexDoub];
+          let newArray6 = [...supDexTwin];
+          let newArray7 = [...luxury];
+          let newArray8 = [...luxury2];
+          let newArray9 = [...family];
+          let newArray10 = [...family2];
+          
+          for (let index = 0; index < 14; index++){
+              let occupancy = (48 - (newArray1[index].availability + newArray2[index].availability + newArray3[index].availability + newArray4[index].availability + newArray5[index].availability + newArray6[index].availability + newArray7[index].availability + newArray8[index].availability + newArray9[index].availability*2 + newArray10[index].availability*2))/48 * 100
+              let date = format(toZonedTime(newArray1[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM');
+              let season = "low";
+              if ( (date >= format(toZonedTime("02/01", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("28/04", 'Asia/Ho_Chi_Minh'), 'dd/MM')) ||  
+                    (date >= format(toZonedTime("01/07", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("31/08", 'Asia/Ho_Chi_Minh'), 'dd/MM')) || 
+                     (date >= format(toZonedTime("01/11", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("20/12", 'Asia/Ho_Chi_Minh'), 'dd/MM')) )
+                season = "high"
+          // Update the element at the given index
+              newArray1[index] = { ...newArray1[index], season: season};
+              newArray2[index] = { ...newArray2[index], season: season};
+              newArray3[index] = { ...newArray3[index], season: season};
+              newArray4[index] = { ...newArray4[index], season: season};
+              newArray5[index] = { ...newArray5[index], season: season};
+              newArray6[index] = { ...newArray6[index], season: season};
+              newArray7[index] = { ...newArray7[index], season: season};
+              newArray8[index] = { ...newArray8[index], season: season};
+              newArray9[index] = { ...newArray9[index], season: season};
+              newArray10[index] = { ...newArray10[index], season: season}; 
+
+              
+          }
+          
+          // newArray[index].occ = 1;
+          setSupDoub(newArray1);
+          setSupTwin(newArray2);
+          setDexDoub(newArray3);
+          setDexTwin(newArray4);
+          setSupDexDoub(newArray5);
+          setSupDexTwin(newArray6);
+          setLuxury(newArray7);
+          setLuxury2(newArray8);
+          setFamily(newArray9);
+          setFamily2(newArray10);
+    }
+
     useEffect(() => {
         // LoadInventory();
       }, []);
@@ -529,6 +580,7 @@ export default function CompareTable () {
                                     <div>{item.occ.toFixed(1)}%</div>
                                     <div>{item.availability} rooms</div>
                                     <div>bar {item.barPrice}</div>
+                                    <div>season: {item.season}</div>
                                     {/* <div>{item.priceValidation.toString()}</div> */}
                                 </TDContent>
                                 ))
@@ -574,6 +626,10 @@ export default function CompareTable () {
 
             <button onClick={updateOcc}>
                 Update Occ
+            </button>
+
+            <button onClick={updateSeason}>
+                Update Season
             </button>
 
             <button onClick={updateBarPrice}>
