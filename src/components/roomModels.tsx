@@ -2,7 +2,7 @@ export default interface SiteMinderRoomModel {
     roomRateID: any,
     availability: any,
     rate: any,
-    date: any,
+    date: Date,
     occ: any, 
     barPrice: any,
     priceValidation: boolean,

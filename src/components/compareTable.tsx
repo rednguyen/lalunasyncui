@@ -371,45 +371,33 @@ export default function CompareTable () {
 
         for (let index = 0; index < 14; index++) {
             let barPrice = 0;
-            if (id === 1 || id === 2){
-                if (room[index].availability >= 7)
-                    barPrice = 1;
-                else if (room[index].availability >= 5 && room[index].availability < 7)
-                    barPrice = 2;
-                else if (room[index].availability >= 3 && room[index].availability < 5)
+            
+            if (room[index].season === "low"){
+                if (room[index].occ < 20)
+                    barPrice = 1
+                else if (room[index].occ >= 20 && room[index].occ < 40)
+                    barPrice = 2
+                else if (room[index].occ >= 40 && room[index].occ < 60)
                     barPrice = 3
-                else if (room[index].availability < 3)
+                else if (room[index].occ >= 60 && room[index].occ < 80)
                     barPrice = 4
+                else if (room[index].occ >= 80)
+                    barPrice = 5
             }
-            else if (id === 3 || id === 4){
-                if (room[index].availability >= 10)
-                    barPrice = 1;
-                else if (room[index].availability >= 7 && room[index].availability < 10)
-                    barPrice = 2;
-                else if (room[index].availability >= 4 && room[index].availability < 7)
-                    barPrice = 3
-                else if (room[index].availability < 4)
-                    barPrice = 4
-            }
-            else if (id === 5 || id === 6){
-                if (room[index].availability >= 13)
-                    barPrice = 1;
-                else if (room[index].availability >= 9 && room[index].availability < 13)
-                    barPrice = 2;
-                else if (room[index].availability >= 5 && room[index].availability < 9)
-                    barPrice = 3
-                else if (room[index].availability < 5)
-                    barPrice = 4
+            else{
+                if (room[index].occ < 20)
+                    barPrice = 5
+                else if (room[index].occ >= 20 && room[index].occ < 40)
+                    barPrice = 6
+                else if (room[index].occ >= 40 && room[index].occ < 60)
+                    barPrice = 7
+                else if (room[index].occ >= 60 && room[index].occ < 80)
+                    barPrice = 8
+                else if (room[index].occ >= 80)
+                    barPrice = 9
             }
     
-            if (room[index].occ > 50 && room[index].occ <= 60)
-                barPrice = 5
-            else if (room[index].occ > 60 && room[index].occ <= 70)
-                barPrice = 6
-            else if (room[index].occ > 70 && room[index].occ <= 80)
-                barPrice = 7
-            else if (room[index].occ > 80)
-                barPrice = 8
+            
             
             newArray[index] = { ...newArray[index], barPrice: barPrice};
             
@@ -516,12 +504,12 @@ export default function CompareTable () {
           let newArray10 = [...family2];
           
           for (let index = 0; index < 14; index++){
-              let occupancy = (48 - (newArray1[index].availability + newArray2[index].availability + newArray3[index].availability + newArray4[index].availability + newArray5[index].availability + newArray6[index].availability + newArray7[index].availability + newArray8[index].availability + newArray9[index].availability*2 + newArray10[index].availability*2))/48 * 100
-              let date = format(toZonedTime(newArray1[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM');
+            //   let occupancy = (48 - (newArray1[index].availability + newArray2[index].availability + newArray3[index].availability + newArray4[index].availability + newArray5[index].availability + newArray6[index].availability + newArray7[index].availability + newArray8[index].availability + newArray9[index].availability*2 + newArray10[index].availability*2))/48 * 100
+              let date = newArray1[index].date;
               let season = "low";
-              if ( (date >= format(toZonedTime("02/01", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("28/04", 'Asia/Ho_Chi_Minh'), 'dd/MM')) ||  
-                    (date >= format(toZonedTime("01/07", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("31/08", 'Asia/Ho_Chi_Minh'), 'dd/MM')) || 
-                     (date >= format(toZonedTime("01/11", 'Asia/Ho_Chi_Minh'), 'dd/MM') && date <= format(toZonedTime("20/12", 'Asia/Ho_Chi_Minh'), 'dd/MM')) )
+              if ( ((new Date(date)) >= (new Date('2025-01-02')) && (new Date(date)) <= (new Date('2025-04-28'))) ||  
+                    ((new Date(date)) >= (new Date('2025-07-01')) && (new Date(date)) <= (new Date('2025-08-31'))) || 
+                    ((new Date(date)) >= (new Date('2025-11-01')) && (new Date(date)) <= (new Date('2025-12-20'))) )
                 season = "high"
           // Update the element at the given index
               newArray1[index] = { ...newArray1[index], season: season};
@@ -563,7 +551,7 @@ export default function CompareTable () {
                         <th></th>
                         {
                             supDoub.map(item => (
-                                    <TDDate>{item.date}</TDDate>
+                                    <TDDate>{item.date.toString()}</TDDate>
                             ))
                         } 
                         </tr>
