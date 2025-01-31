@@ -30,6 +30,13 @@ const Report = styled.div`
     margin: 10px;
 `
 
+const FunctionButton = styled.button`
+    margin: 5px;
+    border-radius: 25%;
+    cursor:pointer;
+`
+
+
 export default function CompareTable () {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -633,22 +640,22 @@ export default function CompareTable () {
                
                 </div>
                 
-                <button type="submit">Load Inventory</button>
-                <button onClick={updateOcc}>
+                <FunctionButton type="submit">Load Inventory</FunctionButton>
+                <FunctionButton onClick={updateOcc}>
                 Update Occ
-                </button>
-                <button onClick={updateSeason}>
+                </FunctionButton>
+                <FunctionButton onClick={updateSeason}>
                 Update Season
-                </button>
-                <button onClick={updateBarPrice}>
+                </FunctionButton>
+                <FunctionButton onClick={updateBarPrice}>
                     Update Bar Price
-                </button>
-                <button onClick={updateBarValidation}>
+                </FunctionButton>
+                <FunctionButton onClick={updateBarValidation}>
                 Validate Price
-                </button>
-                <button onClick={generateReport}>
+                </FunctionButton>
+                <FunctionButton onClick={generateReport}>
                     Generate Report
-                </button>
+                </FunctionButton>
             </form>
         </ContentWrapper>
         
