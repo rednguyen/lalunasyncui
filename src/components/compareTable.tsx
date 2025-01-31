@@ -26,6 +26,10 @@ const ContentWrapper = styled.div`
     margin: 0 auto;
 `
 
+const Report = styled.div`
+    margin: 10px;
+`
+
 export default function CompareTable () {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -59,92 +63,106 @@ export default function CompareTable () {
 
     const generateReport = () => {
         let tempArray: string[] = [];
-        const date = new Date();
-        const vietnamTime = toZonedTime(date, 'Asia/Ho_Chi_Minh');
 
         for (let index = 0; index < 14; index++){
             roomReport.forEach(item => {
                 if (item.room[index].priceValidation === false){
-                    if (item.id === 1 || item.id === 2){
+                    if (item.room[index].season === "low"){
+                        
                         if (item.room[index].barPrice === 1){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai >= 7)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", occ < 20%)")
                         }
                         else if (item.room[index].barPrice === 2){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (5 <= avai < 7)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 20% <= occ < 40%)")
                         }
                         else if (item.room[index].barPrice === 3){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (3 <= avai < 5)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 40% <= occ < 60%)")
                         }
                         else if (item.room[index].barPrice === 4){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai < 3)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 60% <= occ < 80%)")
                         }
                         else if (item.room[index].barPrice === 5){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (50% < occ <= 60%)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 80% <= occ)")
+                            console.log(item.room[index].date)
+                    }}
+                    else
+                    {
+                        if (item.room[index].barPrice === 5){
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", occ < 20%)")
                         }
                         else if (item.room[index].barPrice === 6){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (60% < occ <= 70%)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 20% <= occ < 40%)")
                         }
                         else if (item.room[index].barPrice === 7){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (70% < occ <= 80%)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 40% <= occ < 60%)")
                         }
                         else if (item.room[index].barPrice === 8){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 60% <= occ < 80%)")
                         }
-                    }
+                        else if (item.room[index].barPrice === 9){
+                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (" + item.room[index].season + " season" + ", 80% <= occ)")
+                            console.log(item.room[index].date)
+                        }}
 
-                    else if (item.id === 3 || item.id === 4){
-                        if (item.room[index].barPrice === 1){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai >= 10)")
-                        }
-                        else if (item.room[index].barPrice === 2){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (7 <= avai < 10)")
-                        }
-                        else if (item.room[index].barPrice === 3){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (4 <= avai < 7)")
-                        }
-                        else if (item.room[index].barPrice === 4){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai < 4)")
-                        }
-                        else if (item.room[index].barPrice === 5){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (50% < occ <= 60%)")
-                        }
-                        else if (item.room[index].barPrice === 6){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (60% < occ <= 70%)")
-                        }
-                        else if (item.room[index].barPrice === 7){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (70% < occ <= 80%)")
-                        }
-                        else if (item.room[index].barPrice === 8){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
-                        }
-                    }
+                    // else if (item.id === 3 || item.id === 4){
+                    //     if (item.room[index].barPrice === 1){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai >= 10)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 2){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (7 <= avai < 10)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 3){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (4 <= avai < 7)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 4){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai < 4)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 5){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy') + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (50% < occ <= 60%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 6){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (60% < occ <= 70%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 7){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (70% < occ <= 80%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 8){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 9){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
+                    //     }
+                    // }
 
-                    else if (item.id === 5 || item.id === 6){
-                        if (item.room[index].barPrice === 1){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai >= 13)")
-                        }
-                        else if (item.room[index].barPrice === 2){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (9 <= avai < 13)")
-                        }
-                        else if (item.room[index].barPrice === 3){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (5 <= avai < 9)")
-                        }
-                        else if (item.room[index].barPrice === 4){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai < 5)")
-                        }
-                        else if (item.room[index].barPrice === 5){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (50% < occ <= 60%)")
-                        }
-                        else if (item.room[index].barPrice === 6){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (60% < occ <= 70%)")
-                        }
-                        else if (item.room[index].barPrice === 7){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (70% < occ <= 80%)")
-                        }
-                        else if (item.room[index].barPrice === 8){
-                            tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
-                        }
-                    }
+                    // else if (item.id === 5 || item.id === 6){
+                    //     if (item.room[index].barPrice === 1){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai >= 13)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 2){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (9 <= avai < 13)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 3){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (5 <= avai < 9)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 4){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (avai < 5)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 5){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (50% < occ <= 60%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 6){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (60% < occ <= 70%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 7){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (70% < occ <= 80%)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 8){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
+                    //     }
+                    //     else if (item.room[index].barPrice === 8){
+                    //         tempArray.push(format(toZonedTime(item.room[index].date, 'Asia/Ho_Chi_Minh'), 'dd/MM/yyyy')  + ": " + item.name + " => " + "bar " + item.room[index].barPrice + " (80% < occ)")
+                    //     }
+                    // }
                 }
             })
         }
@@ -569,7 +587,7 @@ export default function CompareTable () {
                                     <div>{item.availability} rooms</div>
                                     <div>bar {item.barPrice}</div>
                                     <div>season: {item.season}</div>
-                                    {/* <div>{item.priceValidation.toString()}</div> */}
+                                    <div>{item.priceValidation.toString()}</div>
                                 </TDContent>
                                 ))
                             
@@ -580,6 +598,7 @@ export default function CompareTable () {
                        
                 </table>
 
+                <Report>
                 {   
                     report.map((item, index) => (
                         <div>
@@ -588,6 +607,8 @@ export default function CompareTable () {
                     ))
                 
                 }
+                </Report>
+                
             </>
 
             {/* <button onClick={LoadInventory}>
@@ -595,42 +616,40 @@ export default function CompareTable () {
             </button> */}
 
             <form onSubmit={LoadInventory}>
-                <label>Pick a date:
+                <div><label>Pick a date: </label>
                     <DatePicker
                         selected={selectedDate}
                         onChange={(date) => date && setSelectedDate(date)}
                     />
-                </label>
-
-                <label>Cookies:
+                </div>
+                
+                <div>
+                <label>Cookies: </label> 
                     <input 
                         type="text" 
                         value={cookies}
                         onChange={(e) => setCookies(e.target.value)}
                         />
-                </label>
+               
+                </div>
+                
                 <button type="submit">Load Inventory</button>
-            </form>
-
-            <button onClick={updateOcc}>
+                <button onClick={updateOcc}>
                 Update Occ
-            </button>
-
-            <button onClick={updateSeason}>
+                </button>
+                <button onClick={updateSeason}>
                 Update Season
-            </button>
-
-            <button onClick={updateBarPrice}>
-                Update Bar Price
-            </button>
-
-            <button onClick={updateBarValidation}>
+                </button>
+                <button onClick={updateBarPrice}>
+                    Update Bar Price
+                </button>
+                <button onClick={updateBarValidation}>
                 Validate Price
-            </button>
-
-            <button onClick={generateReport}>
-                Generate Report
-            </button>
+                </button>
+                <button onClick={generateReport}>
+                    Generate Report
+                </button>
+            </form>
         </ContentWrapper>
         
     )
