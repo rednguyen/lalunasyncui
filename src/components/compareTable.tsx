@@ -641,6 +641,8 @@ export default function CompareTable () {
                 </div>
                 
                 <FunctionButton type="submit">Load Inventory</FunctionButton>
+            
+            </form>
                 <FunctionButton onClick={updateOcc}>
                 Update Occ
                 </FunctionButton>
@@ -656,7 +658,6 @@ export default function CompareTable () {
                 <FunctionButton onClick={generateReport}>
                     Generate Report
                 </FunctionButton>
-            </form>
         </ContentWrapper>
         
     )
